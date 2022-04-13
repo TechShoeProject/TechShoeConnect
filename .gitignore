@@ -1,0 +1,27 @@
+
+*.meta
+*.ttf
+*.txt
+*.mat
+*.asset
+Assets/TextMesh Pro
+Exports
+Library
+Logs
+obj
+Packages
+ProjectSettings
+UserSettings
+Temp
+Assets/Plugins
+Assets/Shatalmic
+Assets/Images
+Assets/Prefab
+Assets/Animation
+Assets/Scenes
+Assets/Editor
+*.csproj
+.vsconfig
+Assets/Text (TMP).controller
+TechShoeConnect.sln
+*.meta
