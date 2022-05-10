@@ -48,6 +48,15 @@ public class MenuScript : MonoBehaviour
             case "Statistiques":
                 SceneManager.LoadScene(6);
                 break;
+            case "Affichage du niveau sonore en temps réel":
+                SceneManager.LoadScene(8);
+                break;
+            case "Modification des vibrations liées au son":
+                SceneManager.LoadScene(9);
+                break;
+            case "Statistiques sonores":
+                SceneManager.LoadScene(10);
+                break;
         }
     }
 }
