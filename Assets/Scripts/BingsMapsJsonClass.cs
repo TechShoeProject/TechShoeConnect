@@ -46,7 +46,7 @@ public class details
     public string mode;
     public string roadType;
     public int[] startPathIndice;
-    public float travelDistance;
+    public List<string> names;
 }
 
 [Serializable]
