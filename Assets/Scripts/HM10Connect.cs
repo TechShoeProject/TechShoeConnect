@@ -171,7 +171,11 @@ public class HM10Connect : MonoBehaviour
 						// set to the none state and the user can start sending and receiving data
 						_state = States.None;
 						HM10_Status.color = Color.green;
-
+						PlayerPrefs.SetString("_hm10", _hm10);
+						PlayerPrefs.SetString("ServiceUUID", ServiceUUID);
+						PlayerPrefs.SetString("Characteristic", Characteristic);
+						SendByte(66);
+						SendByte(255);
 						break;
 
 					case States.Unsubscribe:

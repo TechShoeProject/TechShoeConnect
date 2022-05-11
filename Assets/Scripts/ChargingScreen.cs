@@ -21,7 +21,7 @@ public class ChargingScreen : MonoBehaviour
         {
             yield return null;
             charging.value = loadScene.progress;
-            text.text = "Chargement : " + (int)loadScene.progress * 100 + " %";
+            text.text = "Chargement : " + (int)(loadScene.progress * 100) + " %";
         }
         charging.value = 1;
         text.text = "Chargement : 100 %";
