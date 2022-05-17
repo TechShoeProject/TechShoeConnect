@@ -10,7 +10,7 @@ public class StartGuideScript : MonoBehaviour
     [SerializeField] GameObject[] Adresses;
     float timeElapsedPressingD = 0, timeElapsedPressingT = 0;
     [SerializeField] GameObject goDomicile, goTravail;
-    [SerializeField] TextMeshProUGUI adresseDomicile, adresseTravail;
+    [SerializeField] TextMeshProUGUI adresseDomicile, adresseTravail, adresseCustom;
     bool pressingD = false, pressingT = false;
 
     void ReloadAdresses()
@@ -27,21 +27,38 @@ public class StartGuideScript : MonoBehaviour
     {
         ReloadAdresses();
     }
-    public void StartGPSModule(string adresse)
+    public void StartGPSModule(int adresse)
     {
-        string ifNumber = adresse;
-        if (ifNumber.Length > 1)
-            ifNumber = ifNumber.Substring(0, ifNumber.Length - 1);
-        if(ifNumber == "0")
+        if(adresse == 0)
         {
             PlayerPrefs.SetString("Adresse", PlayerPrefs.GetString("AdresseDomicile"));
-        }else if (ifNumber == "1")
+        }else if (adresse == 1)
         {
             PlayerPrefs.SetString("Adresse", PlayerPrefs.GetString("AdresseTravail"));
         }
-        else
+        else if(adresse == 2)
         {
-            PlayerPrefs.SetString("Adresse", adresse);
+            PlayerPrefs.SetString("Adresse", PlayerPrefs.GetString("AdresseRecente1"));
+        }
+        else if (adresse == 3)
+        {
+            PlayerPrefs.SetString("Adresse", PlayerPrefs.GetString("AdresseRecente2"));
+        }
+        else if (adresse == 4)
+        {
+            PlayerPrefs.SetString("Adresse", PlayerPrefs.GetString("AdresseRecente3"));
+        }
+        else if (adresse == 5)
+        {
+            PlayerPrefs.SetString("Adresse", PlayerPrefs.GetString("AdresseRecente4"));
+        }
+        else if (adresse == 6)
+        {
+            PlayerPrefs.SetString("Adresse", PlayerPrefs.GetString("AdresseRecente5"));
+        }
+        else if (adresse == 7)
+        {
+            PlayerPrefs.SetString("Adresse", adresseCustom.text);
         }
         SceneManager.LoadScene(13);
     }
@@ -78,7 +95,11 @@ public class StartGuideScript : MonoBehaviour
         }
         else if (type == 1)
         {
+            Adresses[1].SetActive(true);
+            goTravail.SetActive(false);
             PlayerPrefs.SetString("AdresseTravail", adresseTravail.text);
+            goTravail.GetComponentInParent<Button>().interactable = true;
+            ReloadAdresses();
         }
     }
 

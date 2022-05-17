@@ -52,12 +52,14 @@ public class HM10Connect : MonoBehaviour
 	void StartProcess()
 	{
 		HM10_Status.color = Color.black;
+		PlayerPrefs.SetString("BTStatus", "<color=black><b>Pas de Bluetooth</color>");
 
 		Reset();
 		BluetoothLEHardwareInterface.Initialize(true, false, () => {
 
 			SetState(States.Scan, 0.1f);
 			HM10_Status.color = Color.gray;
+			PlayerPrefs.SetString("BTStatus", "<color=gray><b>Bluetooth activé</color>");
 
 		}, (error) => {
 
@@ -90,6 +92,7 @@ public class HM10Connect : MonoBehaviour
 
 					case States.Scan:
 						HM10_Status.color = Color.blue;
+						PlayerPrefs.SetString("BTStatus", "<color=blue><b>Recherche</color>");
 
 						BluetoothLEHardwareInterface.ScanForPeripheralsWithServices(null, (address, name) => {
 
@@ -109,6 +112,7 @@ public class HM10Connect : MonoBehaviour
 								HM10_Status.color = Color.cyan;
 
 								SetState(States.Connect, 0.5f);
+								PlayerPrefs.SetString("BTStatus", "<color=blue><b>Connection en cours</color>");
 
 								_workingFoundDevice = false;
 							}
@@ -146,6 +150,7 @@ public class HM10Connect : MonoBehaviour
 						}, (disconnectedAddress) => {
 							BluetoothLEHardwareInterface.Log("Device disconnected: " + disconnectedAddress);
 							HM10_Status.color = Color.red;
+							PlayerPrefs.SetString("BTStatus", "<color=red><b>Appareil déconnecté</color>");
 						});
 						break;
 
@@ -171,6 +176,7 @@ public class HM10Connect : MonoBehaviour
 						// set to the none state and the user can start sending and receiving data
 						_state = States.None;
 						HM10_Status.color = Color.green;
+						PlayerPrefs.SetString("BTStatus", "<color=green><b>Connecté</color>");
 						PlayerPrefs.SetString("_hm10", _hm10);
 						PlayerPrefs.SetString("ServiceUUID", ServiceUUID);
 						PlayerPrefs.SetString("Characteristic", Characteristic);
@@ -188,7 +194,7 @@ public class HM10Connect : MonoBehaviour
 						{
 							BluetoothLEHardwareInterface.DisconnectPeripheral(_hm10, (address) => {
 								BluetoothLEHardwareInterface.DeInitialize(() => {
-
+									PlayerPrefs.SetString("BTStatus", "<color=red><b>Appareil déconnecté</color>");
 									_connected = false;
 									_state = States.None;
 								});

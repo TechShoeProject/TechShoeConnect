@@ -33,6 +33,15 @@ public class MenuScript : MonoBehaviour
             menusGO[i2].GetComponent<Button>().onClick.AddListener(delegate { MenuButtonClicked(i2); });
         }
         temp = null;
+
+        foreach(GameObject x in menusGO)
+        {
+            x.GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_b"));
+            x.transform.Find("Name").GetComponent<TextMeshProUGUI>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_b"));
+            x.transform.Find("Icon").GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Logo_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Logo_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Logo_b"));
+            if (x.transform.Find("Background") != null)
+                x.transform.Find("Background").GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Checkmark_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Checkmark_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Checkmark_b"));
+        }
     }
 
     public void MenuButtonClicked(int x)
@@ -56,6 +65,12 @@ public class MenuScript : MonoBehaviour
                 break;
             case "Statistiques sonores":
                 SceneManager.LoadScene(10);
+                break;
+            case "Commencer un guidage":
+                SceneManager.LoadScene(12);
+                break;
+            case "Guidage actuel":
+                SceneManager.LoadScene(13);
                 break;
         }
     }

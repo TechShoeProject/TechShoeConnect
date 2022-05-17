@@ -15,6 +15,13 @@ public class resourceSets
 public class resources
 {
     public List<routeLegs> routeLegs;
+    public Adress address;
+}
+
+[Serializable]
+public class Adress
+{
+    public string formattedAddress;
 }
 [Serializable]
 public class routeLegs
