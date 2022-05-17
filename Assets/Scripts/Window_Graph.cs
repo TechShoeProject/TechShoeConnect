@@ -22,6 +22,7 @@ public class Window_Graph : MonoBehaviour {
         GameObject gameObject = new GameObject("circle", typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
         gameObject.GetComponent<Image>().sprite = circleSprite;
+        gameObject.GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_b"));
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         rectTransform.anchoredPosition = anchoredPosition;
         rectTransform.sizeDelta = new Vector2(11, 11);
@@ -52,7 +53,7 @@ public class Window_Graph : MonoBehaviour {
     private void CreateDotConnection(Vector2 dotPositionA, Vector2 dotPositionB) {
         GameObject gameObject = new GameObject("dotConnection", typeof(Image));
         gameObject.transform.SetParent(graphContainer, false);
-        gameObject.GetComponent<Image>().color = new Color(1,1,1, .5f);
+        gameObject.GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_b"), .5f);
         RectTransform rectTransform = gameObject.GetComponent<RectTransform>();
         Vector2 dir = (dotPositionB - dotPositionA).normalized;
         float distance = Vector2.Distance(dotPositionA, dotPositionB);

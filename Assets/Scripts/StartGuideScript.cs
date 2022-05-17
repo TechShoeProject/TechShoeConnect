@@ -29,6 +29,7 @@ public class StartGuideScript : MonoBehaviour
     }
     public void StartGPSModule(int adresse)
     {
+        bool alreadySearched = false;
         if(adresse == 0)
         {
             PlayerPrefs.SetString("Adresse", PlayerPrefs.GetString("AdresseDomicile"));
@@ -59,6 +60,22 @@ public class StartGuideScript : MonoBehaviour
         else if (adresse == 7)
         {
             PlayerPrefs.SetString("Adresse", adresseCustom.text);
+            foreach(GameObject x in Adresses)
+            {
+                if(adresseCustom.text == x.GetComponent<TextMeshProUGUI>().text)
+                {
+                    alreadySearched = true;
+                    break;
+                }
+            }
+            if (!alreadySearched)
+            {
+                if (string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente4", ""))) PlayerPrefs.SetString("AdresseRecente5", PlayerPrefs.GetString("AdresseRecente4"));
+                if (string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente3", ""))) PlayerPrefs.SetString("AdresseRecente4", PlayerPrefs.GetString("AdresseRecente3"));
+                if (string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente2", ""))) PlayerPrefs.SetString("AdresseRecente3", PlayerPrefs.GetString("AdresseRecente2"));
+                if (string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente1", ""))) PlayerPrefs.SetString("AdresseRecente2", PlayerPrefs.GetString("AdresseRecente1"));
+                PlayerPrefs.SetString("AdresseRecente1", adresseCustom.text);
+            }
         }
         SceneManager.LoadScene(13);
     }

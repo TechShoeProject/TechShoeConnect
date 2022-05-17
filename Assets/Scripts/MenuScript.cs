@@ -11,9 +11,18 @@ public class MenuScript : MonoBehaviour
     GameObject[] menusGO;
     [SerializeField] GameObject menuPrefab;
     GameObject temp;
+    [SerializeField] List<TMP_FontAsset> fontList;
 
     private void Awake()
     {
+        fontList.Add(Resources.Load<TMP_FontAsset>("Fonts/LiberationSans SDF"));
+        fontList.Add(Resources.Load<TMP_FontAsset>("Fonts/Roboto-Regular SDF"));
+        fontList.Add(Resources.Load<TMP_FontAsset>("Fonts/Bahnschrifft SDF"));
+        fontList.Add(Resources.Load<TMP_FontAsset>("Fonts/Verdana SDF"));
+        fontList.Add(Resources.Load<TMP_FontAsset>("Fonts/Autumn SDF"));
+        fontList.Add(Resources.Load<TMP_FontAsset>("Fonts/Univers SDF"));
+        fontList.Add(Resources.Load<TMP_FontAsset>("Fonts/Comic-Sans-MS SDF"));
+        fontList.Add(Resources.Load<TMP_FontAsset>("Fonts/DejaVuSans SDF"));
         menusGO = new GameObject[menus.Length];
         for (int i = 0; i < menus.Length; i++)
         {
@@ -29,6 +38,10 @@ public class MenuScript : MonoBehaviour
             {
                 menusGO[i].transform.Find("Activate").gameObject.SetActive(false);
             }
+            else
+            {
+                gameObject.GetComponent<ActivateAndDeactivateScript>().DetecToggle = menusGO[i].transform.Find("Activate").GetComponent<Toggle>();
+            }
             int i2 = i;
             menusGO[i2].GetComponent<Button>().onClick.AddListener(delegate { MenuButtonClicked(i2); });
         }
@@ -38,9 +51,13 @@ public class MenuScript : MonoBehaviour
         {
             x.GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_b"));
             x.transform.Find("Name").GetComponent<TextMeshProUGUI>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_b"));
+            x.transform.Find("Name").GetComponent<TextMeshProUGUI>().font = fontList[PlayerPrefs.GetInt("Police")];
             x.transform.Find("Icon").GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Logo_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Logo_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Logo_b"));
-            if (x.transform.Find("Background") != null)
-                x.transform.Find("Background").GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Checkmark_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Checkmark_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Checkmark_b"));
+            if (x.transform.Find("Activate").transform.Find("Background") != null)
+                x.transform.Find("Activate").transform.Find("Background").GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Checkmark_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Checkmark_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Checkmark_b"));
+            if(x.transform.Find("Activate").transform.Find("Background").transform.Find("Checkmark") != null)
+                x.transform.Find("Activate").transform.Find("Background").transform.Find("Checkmark").GetComponent<Image>().color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Logo_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Logo_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Logo_b"));
+            
         }
     }
 
@@ -71,6 +88,12 @@ public class MenuScript : MonoBehaviour
                 break;
             case "Guidage actuel":
                 SceneManager.LoadScene(13);
+                break;
+            case "Thème":
+                SceneManager.LoadScene(18);
+                break;
+            case "Police":
+                SceneManager.LoadScene(19);
                 break;
         }
     }

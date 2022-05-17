@@ -11,6 +11,13 @@ public class ChargingScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI text;
     void Start()
     {
+        PlayerPrefs.SetInt("Connected", 0);
+        PlayerPrefs.SetInt("Dangerosite", 0);
+        PlayerPrefs.SetInt("Distance", 0);
+        PlayerPrefs.SetInt("Variation", 0);
+        PlayerPrefs.SetInt("LastData3", 0);
+        PlayerPrefs.SetInt("LastData2", 0);
+        PlayerPrefs.SetInt("LastData1", 0);
         PlayerPrefs.SetInt("LaunchGPS", 0);
         PlayerPrefs.SetInt("GPSRequestTime", 0);
         PlayerPrefs.SetString("Maneuver1", string.Empty);
@@ -31,6 +38,8 @@ public class ChargingScreen : MonoBehaviour
         PlayerPrefs.SetString("NextAdressesNames4", string.Empty);
         PlayerPrefs.SetString("NextAdressesNames5", string.Empty);
         if (PlayerPrefs.GetInt("Theme", -50) == -50) PlayerPrefs.SetInt("Theme", 1);
+        if (PlayerPrefs.GetInt("Police", -50) == -50) PlayerPrefs.SetInt("Police", 0);
+
         PlayerPrefs.SetFloat("Theme1Background_r", 0.2169811f);
         PlayerPrefs.SetFloat("Theme1Background_g", 0.2169811f);
         PlayerPrefs.SetFloat("Theme1Background_b", 0.2169811f);
@@ -40,9 +49,9 @@ public class ChargingScreen : MonoBehaviour
         PlayerPrefs.SetFloat("Theme1Logo_r", 0f);
         PlayerPrefs.SetFloat("Theme1Logo_g", 0f);
         PlayerPrefs.SetFloat("Theme1Logo_b", 0f);
-        PlayerPrefs.SetFloat("Theme1LogoO_r", 1f);
-        PlayerPrefs.SetFloat("Theme1LogoO_g", 1f);
-        PlayerPrefs.SetFloat("Theme1LogoO_b", 1f);
+        PlayerPrefs.SetFloat("Theme1LogoO_r", 0.6f);
+        PlayerPrefs.SetFloat("Theme1LogoO_g", 0.6f);
+        PlayerPrefs.SetFloat("Theme1LogoO_b", 0.6f);
         PlayerPrefs.SetFloat("Theme1Checkmark_r", 0.55f);
         PlayerPrefs.SetFloat("Theme1Checkmark_g", 0.55f);
         PlayerPrefs.SetFloat("Theme1Checkmark_b", 0.55f);
@@ -52,6 +61,98 @@ public class ChargingScreen : MonoBehaviour
         PlayerPrefs.SetFloat("Theme1Button_r", 0.4f);
         PlayerPrefs.SetFloat("Theme1Button_g", 0.4f);
         PlayerPrefs.SetFloat("Theme1Button_b", 0.4f);
+
+
+        PlayerPrefs.SetFloat("Theme0Background_r", 1f);
+        PlayerPrefs.SetFloat("Theme0Background_g", 1f);
+        PlayerPrefs.SetFloat("Theme0Background_b", 1f);
+        PlayerPrefs.SetFloat("Theme0Text_r", 0f);
+        PlayerPrefs.SetFloat("Theme0Text_g", 0f);
+        PlayerPrefs.SetFloat("Theme0Text_b", 0f);
+        PlayerPrefs.SetFloat("Theme0Logo_r", 0f);
+        PlayerPrefs.SetFloat("Theme0Logo_g", 0f);
+        PlayerPrefs.SetFloat("Theme0Logo_b", 0f);
+        PlayerPrefs.SetFloat("Theme0LogoO_r", 0.5f);
+        PlayerPrefs.SetFloat("Theme0LogoO_g", 0.5f);
+        PlayerPrefs.SetFloat("Theme0LogoO_b", 0.5f);
+        PlayerPrefs.SetFloat("Theme0Checkmark_r", 0.9f);
+        PlayerPrefs.SetFloat("Theme0Checkmark_g", 0.9f);
+        PlayerPrefs.SetFloat("Theme0Checkmark_b", 0.9f);
+        PlayerPrefs.SetFloat("Theme0RedButton_r", 1f);
+        PlayerPrefs.SetFloat("Theme0RedButton_g", 0f);
+        PlayerPrefs.SetFloat("Theme0RedButton_b", 0f);
+        PlayerPrefs.SetFloat("Theme0Button_r", 0.9f);
+        PlayerPrefs.SetFloat("Theme0Button_g", 0.9f);
+        PlayerPrefs.SetFloat("Theme0Button_b", 0.9f);
+
+
+        PlayerPrefs.SetFloat("Theme2Background_r", 0.35f);
+        PlayerPrefs.SetFloat("Theme2Background_g", 0.35f);
+        PlayerPrefs.SetFloat("Theme2Background_b", 0.35f);
+        PlayerPrefs.SetFloat("Theme2Text_r", 1f);
+        PlayerPrefs.SetFloat("Theme2Text_g", 0.6f);
+        PlayerPrefs.SetFloat("Theme2Text_b", 0f);
+        PlayerPrefs.SetFloat("Theme2Logo_r", 0f);
+        PlayerPrefs.SetFloat("Theme2Logo_g", 0.3f);
+        PlayerPrefs.SetFloat("Theme2Logo_b", 1f);
+        PlayerPrefs.SetFloat("Theme2LogoO_r", 0.5f);
+        PlayerPrefs.SetFloat("Theme2LogoO_g", 0.5f);
+        PlayerPrefs.SetFloat("Theme2LogoO_b", 0.5f);
+        PlayerPrefs.SetFloat("Theme2Checkmark_r", 0.55f);
+        PlayerPrefs.SetFloat("Theme2Checkmark_g", 0.55f);
+        PlayerPrefs.SetFloat("Theme2Checkmark_b", 0.55f);
+        PlayerPrefs.SetFloat("Theme2RedButton_r", 1f);
+        PlayerPrefs.SetFloat("Theme2RedButton_g", 0f);
+        PlayerPrefs.SetFloat("Theme2RedButton_b", 0f);
+        PlayerPrefs.SetFloat("Theme2Button_r", 0.5f);
+        PlayerPrefs.SetFloat("Theme2Button_g", 0.5f);
+        PlayerPrefs.SetFloat("Theme2Button_b", 0.5f);
+
+
+        PlayerPrefs.SetFloat("Theme3Background_r", 1f);
+        PlayerPrefs.SetFloat("Theme3Background_g", 1f);
+        PlayerPrefs.SetFloat("Theme3Background_b", 1f);
+        PlayerPrefs.SetFloat("Theme3Text_r", 0f);
+        PlayerPrefs.SetFloat("Theme3Text_g", 0f);
+        PlayerPrefs.SetFloat("Theme3Text_b", 0f);
+        PlayerPrefs.SetFloat("Theme3Logo_r", 0f);
+        PlayerPrefs.SetFloat("Theme3Logo_g", 0f);
+        PlayerPrefs.SetFloat("Theme3Logo_b", 0f);
+        PlayerPrefs.SetFloat("Theme3LogoO_r", 0f);
+        PlayerPrefs.SetFloat("Theme3LogoO_g", 0f);
+        PlayerPrefs.SetFloat("Theme3LogoO_b", 0f);
+        PlayerPrefs.SetFloat("Theme3Checkmark_r", 1f);
+        PlayerPrefs.SetFloat("Theme3Checkmark_g", 1f);
+        PlayerPrefs.SetFloat("Theme3Checkmark_b", 1f);
+        PlayerPrefs.SetFloat("Theme3RedButton_r", 1f);
+        PlayerPrefs.SetFloat("Theme3RedButton_g", 0f);
+        PlayerPrefs.SetFloat("Theme3RedButton_b", 0f);
+        PlayerPrefs.SetFloat("Theme3Button_r", 1f);
+        PlayerPrefs.SetFloat("Theme3Button_g", 1f);
+        PlayerPrefs.SetFloat("Theme3Button_b", 1f);
+
+
+        PlayerPrefs.SetFloat("Theme4Background_r", 0f);
+        PlayerPrefs.SetFloat("Theme4Background_g", 0f);
+        PlayerPrefs.SetFloat("Theme4Background_b", 0f);
+        PlayerPrefs.SetFloat("Theme4Text_r", 0.45f);
+        PlayerPrefs.SetFloat("Theme4Text_g", 0.45f);
+        PlayerPrefs.SetFloat("Theme4Text_b", 0.45f);
+        PlayerPrefs.SetFloat("Theme4Logo_r", 0.35f);
+        PlayerPrefs.SetFloat("Theme4Logo_g", 0.35f);
+        PlayerPrefs.SetFloat("Theme4Logo_b", 0.35f);
+        PlayerPrefs.SetFloat("Theme4LogoO_r", 0.45f);
+        PlayerPrefs.SetFloat("Theme4LogoO_g", 0.45f);
+        PlayerPrefs.SetFloat("Theme4LogoO_b", 0.45f);
+        PlayerPrefs.SetFloat("Theme4Checkmark_r", 0.5f);
+        PlayerPrefs.SetFloat("Theme4Checkmark_g", 0.5f);
+        PlayerPrefs.SetFloat("Theme4Checkmark_b", 0.5f);
+        PlayerPrefs.SetFloat("Theme4RedButton_r", 0.5f);
+        PlayerPrefs.SetFloat("Theme4RedButton_g", 0f);
+        PlayerPrefs.SetFloat("Theme4RedButton_b", 0f);
+        PlayerPrefs.SetFloat("Theme4Button_r", 0.1f);
+        PlayerPrefs.SetFloat("Theme4Button_g", 0.1f);
+        PlayerPrefs.SetFloat("Theme4Button_b", 0.1f);
         StartCoroutine(LoadScene());
     }
 

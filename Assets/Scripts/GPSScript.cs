@@ -46,10 +46,10 @@ public class GPSScript : MonoBehaviour
         if (PlayerPrefs.GetInt("GPSRequestTime") != 0 && (timeInDay - PlayerPrefs.GetInt("GPSRequestTime")  > 10 || timeInDay - PlayerPrefs.GetInt("GPSRequestTime")  > PlayerPrefs.GetInt("Duration1") / 2))
         {
             PlayerPrefs.SetInt("GPSRequestTime", timeInDay);
-            Adresse = PlayerPrefs.GetString("NextAdressesNames20") == "NON0" ? (PlayerPrefs.GetString("NextAdressesNames19") == "NON0" ? (PlayerPrefs.GetString("NextAdressesNames18") == "NON0" ?
-                (PlayerPrefs.GetString("NextAdressesNames17") == "NON0" ? (PlayerPrefs.GetString("NextAdressesNames16") == "NON0" ? (PlayerPrefs.GetString("NextAdressesNames15") == "NON0" ? PlayerPrefs.GetString("Adresse")
-                : PlayerPrefs.GetString("NextAdressesNames15")) : PlayerPrefs.GetString("NextAdressesNames16")) : PlayerPrefs.GetString("NextAdressesNames17")) : PlayerPrefs.GetString("NextAdressesNames18")) : 
-                PlayerPrefs.GetString("NextAdressesNames19")) : PlayerPrefs.GetString("NextAdressesNames20");
+            Adresse = PlayerPrefs.GetString("NextAdressesNames34") == "NON0" ? (PlayerPrefs.GetString("NextAdressesNames33") == "NON0" ? (PlayerPrefs.GetString("NextAdressesNames32") == "NON0" ?
+                (PlayerPrefs.GetString("NextAdressesNames31") == "NON0" ? (PlayerPrefs.GetString("NextAdressesNames30") == "NON0" ? (PlayerPrefs.GetString("NextAdressesNames29") == "NON0" ? PlayerPrefs.GetString("Adresse")
+                : PlayerPrefs.GetString("NextAdressesNames29")) : PlayerPrefs.GetString("NextAdressesNames30")) : PlayerPrefs.GetString("NextAdressesNames31")) : PlayerPrefs.GetString("NextAdressesNames32")) : 
+                PlayerPrefs.GetString("NextAdressesNames33")) : PlayerPrefs.GetString("NextAdressesNames34");
             instructions = new List<string>();
             maneuvre = new List<string>();
             degrees = new List<int>();
@@ -95,7 +95,7 @@ public class GPSScript : MonoBehaviour
 
     IEnumerator GetFullAdressName(string name, int index1)
     {
-        string url = "https://dev.virtualearth.net/REST/v1/Locations?&query=" + name + "&key=" + bingMapsKey;
+        string url = "https://dev.virtualearth.net/REST/v1/Locations?&query=" + name + ",%20France&key=" + bingMapsKey;
         int index = url.IndexOf(" ");
         while (index != -1)
         {
@@ -114,8 +114,7 @@ public class GPSScript : MonoBehaviour
             {
                 string jsonstring = www.downloadHandler.text;
                 BingsMapsJsonClass data = JsonUtility.FromJson<BingsMapsJsonClass>(jsonstring);
-                names[index1] = data.resourceSets[0].resources[0].address.formattedAddress;
-                PlayerPrefs.SetString("NextAdressesNames" + (index1 + 1).ToString(), names[index1]);
+                PlayerPrefs.SetString("NextAdressesNames" + (index1 + 1).ToString(), data.resourceSets[0].resources[0].address.formattedAddress);
             }
         }
     }
@@ -221,18 +220,24 @@ public class GPSScript : MonoBehaviour
                     PlayerPrefs.SetInt("Duration3", durations[2]);
                 if (durations.Count >= 3)
                     PlayerPrefs.SetInt("Duration4", durations[3]);
-                if (names.Count >= 15)
-                    StartCoroutine(GetFullAdressName(names[14], 14));
-                if (names.Count >= 16)
-                    StartCoroutine(GetFullAdressName(names[15], 15));
-                if (names.Count >= 17)
-                    StartCoroutine(GetFullAdressName(names[16], 16));
-                if (names.Count >= 18)
-                    StartCoroutine(GetFullAdressName(names[17], 17));
-                if (names.Count >= 19)
-                    StartCoroutine(GetFullAdressName(names[18], 18));
                 if (names.Count >= 20)
-                    StartCoroutine(GetFullAdressName(names[20], 20));
+                    if (names[19] != "NON0")
+                        StartCoroutine(GetFullAdressName(names[19], 29));
+                if (names.Count >= 21)
+                    if (names[20] != "NON0")
+                        StartCoroutine(GetFullAdressName(names[20], 30));
+                if (names.Count >= 22)
+                    if (names[21] != "NON0")
+                        StartCoroutine(GetFullAdressName(names[21], 31));
+                if (names.Count >= 23)
+                    if (names[22] != "NON0")
+                        StartCoroutine(GetFullAdressName(names[22], 32));
+                if (names.Count >= 24)
+                    if (names[23] != "NON0")
+                        StartCoroutine(GetFullAdressName(names[23], 33));
+                if (names.Count >= 25)
+                    if (names[24] != "NON0")
+                        StartCoroutine(GetFullAdressName(names[24], 34));
             }
         }
         Input.location.Stop();

@@ -180,6 +180,7 @@ public class HM10Connect : MonoBehaviour
 						PlayerPrefs.SetString("_hm10", _hm10);
 						PlayerPrefs.SetString("ServiceUUID", ServiceUUID);
 						PlayerPrefs.SetString("Characteristic", Characteristic);
+						PlayerPrefs.SetInt("Connected", 1);
 						SendByte(66);
 						SendByte(255);
 						break;
