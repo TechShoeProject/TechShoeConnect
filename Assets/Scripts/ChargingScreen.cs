@@ -15,9 +15,10 @@ public class ChargingScreen : MonoBehaviour
         PlayerPrefs.SetInt("Dangerosite", 0);
         PlayerPrefs.SetInt("Distance", 0);
         PlayerPrefs.SetInt("Variation", 0);
-        PlayerPrefs.SetInt("LastData3", 0);
-        PlayerPrefs.SetInt("LastData2", 0);
-        PlayerPrefs.SetInt("LastData1", 0);
+        PlayerPrefs.SetInt("LastData4", -1);
+        PlayerPrefs.SetInt("LastData3", -1);
+        PlayerPrefs.SetInt("LastData2", -1);
+        PlayerPrefs.SetInt("LastData1", -1);
         PlayerPrefs.SetInt("LaunchGPS", 0);
         PlayerPrefs.SetInt("GPSRequestTime", 0);
         PlayerPrefs.SetString("Maneuver1", string.Empty);

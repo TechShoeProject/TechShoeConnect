@@ -23,6 +23,12 @@ public class MainButtonScript : MonoBehaviour
         searchWords.Add("Accessibilité");
         searchWords.Add("Batterie");
         searchWords.Add("Pas");
+        searchWords.Add("Débug");
+    }
+
+    public void ResetSearch()
+    {
+
     }
 
     public void SearchWord()
@@ -34,7 +40,7 @@ public class MainButtonScript : MonoBehaviour
                 foreach (string g in searchWords)
                 {
                     if (g.Length > j)
-                        if (searchField.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Substring(0, searchField.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Length - 1) == g.Substring(0, g.Length - j))
+                        if (searchField.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Substring(0, searchField.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Length - 1).Equals(g.Substring(0, g.Length - j), System.StringComparison.CurrentCultureIgnoreCase))
                         {
                             goTo = g;
                             break;
@@ -65,6 +71,7 @@ public class MainButtonScript : MonoBehaviour
                 "Thème" => 18,
                 "Batterie" => 15,
                 "Pas" => 16,
+                "Débug" => 20,
                 _ => 1
             });
         }

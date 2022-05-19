@@ -95,6 +95,9 @@ public class MenuScript : MonoBehaviour
             case "Police":
                 SceneManager.LoadScene(19);
                 break;
+            case "Options de débug":
+                SceneManager.LoadScene(20);
+                break;
         }
     }
 }

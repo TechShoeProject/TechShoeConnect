@@ -8,7 +8,7 @@ public class SyncDanger : MonoBehaviour
     [SerializeField] Slider faible, moyen, haut, pop;
     bool faibleU, moyenU, hautU;
     string _hm10, ServiceUUID, Characteristic;
-	public string DeviceName = "DSD TECH";
+    QueuedData dataToSend;
 
 	private void Awake()
     {
@@ -61,10 +61,10 @@ public class SyncDanger : MonoBehaviour
                 break;
         }
         byte toSend = (byte)(int)(value * 255);
-		SendByte(3);
-		SendByte(1);
-		SendByte((byte)vibType);
-		SendByte(toSend);
+        dataToSend.valueToSend.Add(3);
+        dataToSend.valueToSend.Add(1);
+        dataToSend.valueToSend.Add(vibType);
+        dataToSend.valueToSend.Add(toSend);
         PlayerPrefs.SetFloat("VibrationOFaible", faible.value);
         PlayerPrefs.SetFloat("VibrationOMoyen", moyen.value);
         PlayerPrefs.SetFloat("VibrationOHaut", haut.value);

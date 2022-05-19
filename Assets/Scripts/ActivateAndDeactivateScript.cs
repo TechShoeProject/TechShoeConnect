@@ -47,7 +47,7 @@ public class ActivateAndDeactivateScript : MonoBehaviour
     {
         if (isAsking && SceneManager.GetActiveScene().buildIndex == 3)
         {
-			if(PlayerPrefs.GetInt("LastData2") == 4 && PlayerPrefs.GetInt("LastData1") == 0)
+			if(PlayerPrefs.GetInt("LastData4") == 4 && PlayerPrefs.GetInt("LastData3") == 0 && PlayerPrefs.GetInt("LastData2") == 0 && PlayerPrefs.GetInt("LastData1") == 0)
             {
 				DetecToggle.transform.Find("Background").GetComponent<Image>().color = Color.green;
 				isAsking = false;
@@ -58,7 +58,7 @@ public class ActivateAndDeactivateScript : MonoBehaviour
 
 		if (isAsking && SceneManager.GetActiveScene().buildIndex == 7)
 		{
-			if (PlayerPrefs.GetInt("LastData2") == 4 && PlayerPrefs.GetInt("LastData1") == 1)
+			if (PlayerPrefs.GetInt("LastData4") == 4 && PlayerPrefs.GetInt("LastData3") == 1 && PlayerPrefs.GetInt("LastData2") == 0 && PlayerPrefs.GetInt("LastData1") == 0)
 			{
 				DetecToggle.transform.Find("Background").GetComponent<Image>().color = Color.green;
 				isAsking = false;
