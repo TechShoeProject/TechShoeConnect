@@ -9,7 +9,7 @@ public class HM10Connect : MonoBehaviour
 	public string ServiceUUID = "FFE0";
 	public string Characteristic = "FFE1";
 
-	[SerializeField] Image HM10_Status;
+	public Image HM10_Status;
 
 	enum States
 	{
@@ -28,6 +28,7 @@ public class HM10Connect : MonoBehaviour
 	private float _timeout = 0f;
 	private States _state = States.None;
 	private bool _foundID = false;
+	public bool Initialized = false;
 
 	// this is our hm10 device
 	private string _hm10;
@@ -68,10 +69,10 @@ public class HM10Connect : MonoBehaviour
 	}
 
 	// Use this for initialization
-	void Start()
+	public void Initialize()
 	{
 		HM10_Status.color = Color.white;
-
+		Initialized = true;
 		StartProcess();
 	}
 
@@ -181,8 +182,7 @@ public class HM10Connect : MonoBehaviour
 						PlayerPrefs.SetString("ServiceUUID", ServiceUUID);
 						PlayerPrefs.SetString("Characteristic", Characteristic);
 						PlayerPrefs.SetInt("Connected", 1);
-						SendByte(66);
-						SendByte(255);
+						Initialized = false;
 						break;
 
 					case States.Unsubscribe:

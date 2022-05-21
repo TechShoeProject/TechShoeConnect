@@ -7,39 +7,29 @@ using UnityEngine.SceneManagement;
 
 public class ActivateAndDeactivateScript : MonoBehaviour
 {
-	string _hm10, ServiceUUID, Characteristic;
 	bool isAsking = false, toggleValue;
 	public Toggle DetecToggle;
-	void SendByte(byte value)
-	{
-		_hm10 = PlayerPrefs.GetString("_hm10", "");
-		ServiceUUID = PlayerPrefs.GetString("ServiceUUID", "");
-		Characteristic = PlayerPrefs.GetString("Characteristic", "");
-		byte[] data = new byte[] { value };
-		// notice that the 6th parameter is false. this is because the HM10 doesn't support withResponse writing to its characteristic.
-		// some devices do support this setting and it is prefered when they do so that you can know for sure the data was received by 
-		// the device
-		BluetoothLEHardwareInterface.WriteCharacteristic(_hm10, ServiceUUID, Characteristic, data, data.Length, false, (characteristicUUID) => {
-
-			BluetoothLEHardwareInterface.Log("Write Succeeded");
-		});
+	GameObject holder;
+	
+    private void Awake()
+    {
+		holder = GameObject.FindGameObjectWithTag("MultiScriptHolder");
 	}
-
     private void Start()
     {
 		toggleValue = DetecToggle.isOn;
     }
 
     void ObstacleToggle()
-    {
-		SendByte(4);
-		SendByte(0);
+	{
+		holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(4);
+		holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
 		isAsking = true;
     }
 	void SonoreToggle()
 	{
-		SendByte(4);
-		SendByte(1);
+		holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(4);
+		holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(1);
 		isAsking = true;
 	}
 

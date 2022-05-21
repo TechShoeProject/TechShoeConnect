@@ -89,6 +89,9 @@ public class MenuScript : MonoBehaviour
             case "Guidage actuel":
                 SceneManager.LoadScene(13);
                 break;
+            case "Modification des vibrations liées au GPS":
+                SceneManager.LoadScene(14);
+                break;
             case "Thème":
                 SceneManager.LoadScene(18);
                 break;

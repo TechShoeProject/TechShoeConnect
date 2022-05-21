@@ -7,14 +7,11 @@ public class SyncDanger : MonoBehaviour
 {
     [SerializeField] Slider faible, moyen, haut, pop;
     bool faibleU, moyenU, hautU;
-    string _hm10, ServiceUUID, Characteristic;
-    QueuedData dataToSend;
+    GameObject holder;
 
 	private void Awake()
     {
-        _hm10 = PlayerPrefs.GetString("_hm10", "");
-        ServiceUUID = PlayerPrefs.GetString("ServiceUUID", "");
-        Characteristic = PlayerPrefs.GetString("Characteristic", "");
+        holder = GameObject.FindGameObjectWithTag("MultiScriptHolder");
         faible.value = PlayerPrefs.GetFloat("VibrationOFaible", 0.3f);
         moyen.value = PlayerPrefs.GetFloat("VibrationOMoyen", 0.6f);
         haut.value = PlayerPrefs.GetFloat("VibrationOHaut", 1f);
@@ -61,27 +58,16 @@ public class SyncDanger : MonoBehaviour
                 break;
         }
         byte toSend = (byte)(int)(value * 255);
-        dataToSend.valueToSend.Add(3);
-        dataToSend.valueToSend.Add(1);
-        dataToSend.valueToSend.Add(vibType);
-        dataToSend.valueToSend.Add(toSend);
+        holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
+        holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+        holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)vibType);
+        holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(toSend);
         PlayerPrefs.SetFloat("VibrationOFaible", faible.value);
         PlayerPrefs.SetFloat("VibrationOMoyen", moyen.value);
         PlayerPrefs.SetFloat("VibrationOHaut", haut.value);
         PlayerPrefs.SetFloat("VibrationOPop", pop.value);
 
     }
-	void SendByte(byte value)
-	{
-		byte[] data = new byte[] { value };
-		// notice that the 6th parameter is false. this is because the HM10 doesn't support withResponse writing to its characteristic.
-		// some devices do support this setting and it is prefered when they do so that you can know for sure the data was received by 
-		// the device
-		BluetoothLEHardwareInterface.WriteCharacteristic(_hm10, ServiceUUID, Characteristic, data, data.Length, false, (characteristicUUID) => {
-
-			BluetoothLEHardwareInterface.Log("Write Succeeded");
-		});
-	}
 
 	public void Used(int x)
     {

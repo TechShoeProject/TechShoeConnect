@@ -6,7 +6,7 @@ using TMPro;
 
 public class GPSPathIndicator : MonoBehaviour
 {
-    [SerializeField] Sprite straight, right, left, bearRight, bearLeft, keepRight, keepLeft, stayRight, stayLeft, rightThenLeft, leftThenRight, enterExitRoundabout, roadNameChange, unknownManeuver;
+    [SerializeField] Sprite straight, right, left, bearRight, bearLeft, keepRight, keepLeft, stayRight, stayLeft, rightThenLeft, leftThenRight, rightThenRight, leftThenLeft, enterExitRoundabout, roadNameChange, depart, arrive, unknownManeuver;
     [SerializeField] Image nextManeuver, secondManeuver, thirdManeuver;
     [SerializeField] TextMeshProUGUI nextManeuverDistance, secondManeuverDistance, thirdManeuverDistance;
     Sprite nextManeuverSprite, secondManeuverSprite, thirdManeuverSprite;
@@ -26,6 +26,10 @@ public class GPSPathIndicator : MonoBehaviour
             "TurnLeft" => left,
             "TurnRightThenTurnLeft" => rightThenLeft,
             "TurnLeftThenTurnRight" => leftThenRight,
+            "TurnRightThenTurnRight" => rightThenRight,
+            "TurnLeftThenTurnLeft" => rightThenRight,
+            "ArriveFinish" => arrive,
+            "DepartStart" => depart,
             "EnterThenExitRoundabout" => enterExitRoundabout,
             "RoadNameChange" => roadNameChange,
             _ => unknownManeuver,
@@ -44,6 +48,10 @@ public class GPSPathIndicator : MonoBehaviour
             "TurnLeft" => left,
             "TurnRightThenTurnLeft" => rightThenLeft,
             "TurnLeftThenTurnRight" => leftThenRight,
+            "TurnRightThenTurnRight" => rightThenRight,
+            "TurnLeftThenTurnLeft" => rightThenRight,
+            "ArriveFinish" => arrive,
+            "DepartStart" => depart,
             "EnterThenExitRoundabout" => enterExitRoundabout,
             "RoadNameChange" => roadNameChange,
             _ => unknownManeuver,
@@ -62,6 +70,10 @@ public class GPSPathIndicator : MonoBehaviour
             "TurnLeft" => left,
             "TurnRightThenTurnLeft" => rightThenLeft,
             "TurnLeftThenTurnRight" => leftThenRight,
+            "TurnRightThenTurnRight" => rightThenRight,
+            "TurnLeftThenTurnLeft" => rightThenRight,
+            "ArriveFinish" => arrive,
+            "DepartStart" => depart,
             "EnterThenExitRoundabout" => enterExitRoundabout,
             "RoadNameChange" => roadNameChange,
             _ => unknownManeuver,

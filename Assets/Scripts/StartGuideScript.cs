@@ -70,13 +70,30 @@ public class StartGuideScript : MonoBehaviour
             }
             if (!alreadySearched)
             {
-                if (string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente4", ""))) PlayerPrefs.SetString("AdresseRecente5", PlayerPrefs.GetString("AdresseRecente4"));
-                if (string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente3", ""))) PlayerPrefs.SetString("AdresseRecente4", PlayerPrefs.GetString("AdresseRecente3"));
-                if (string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente2", ""))) PlayerPrefs.SetString("AdresseRecente3", PlayerPrefs.GetString("AdresseRecente2"));
-                if (string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente1", ""))) PlayerPrefs.SetString("AdresseRecente2", PlayerPrefs.GetString("AdresseRecente1"));
+                if (!string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente4", ""))) PlayerPrefs.SetString("AdresseRecente5", PlayerPrefs.GetString("AdresseRecente4"));
+                if (!string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente3", ""))) PlayerPrefs.SetString("AdresseRecente4", PlayerPrefs.GetString("AdresseRecente3"));
+                if (!string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente2", ""))) PlayerPrefs.SetString("AdresseRecente3", PlayerPrefs.GetString("AdresseRecente2"));
+                if (!string.IsNullOrEmpty(PlayerPrefs.GetString("AdresseRecente1", ""))) PlayerPrefs.SetString("AdresseRecente2", PlayerPrefs.GetString("AdresseRecente1"));
                 PlayerPrefs.SetString("AdresseRecente1", adresseCustom.text);
             }
         }
+        PlayerPrefs.SetString("Maneuver1", string.Empty);
+        PlayerPrefs.SetString("Maneuver2", string.Empty);
+        PlayerPrefs.SetString("Maneuver3", string.Empty);
+        PlayerPrefs.SetString("Maneuver4", string.Empty);
+        PlayerPrefs.SetFloat("Distance1", float.NaN);
+        PlayerPrefs.SetFloat("Distance2", float.NaN);
+        PlayerPrefs.SetFloat("Distance3", float.NaN);
+        PlayerPrefs.SetFloat("Distance4", float.NaN);
+        PlayerPrefs.SetInt("Duration1", 0);
+        PlayerPrefs.SetInt("Duration2", 0);
+        PlayerPrefs.SetInt("Duration3", 0);
+        PlayerPrefs.SetInt("Duration4", 0);
+        PlayerPrefs.SetString("NextAdressesNames1", string.Empty);
+        PlayerPrefs.SetString("NextAdressesNames2", string.Empty);
+        PlayerPrefs.SetString("NextAdressesNames3", string.Empty);
+        PlayerPrefs.SetString("NextAdressesNames4", string.Empty);
+        PlayerPrefs.SetString("NextAdressesNames5", string.Empty);
         SceneManager.LoadScene(13);
     }
     public void Pressing(int type)

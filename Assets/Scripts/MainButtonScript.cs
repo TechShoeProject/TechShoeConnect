@@ -2,18 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class MainButtonScript : MonoBehaviour
 {
-    string _hm10, ServiceUUID, Characteristic, goTo;
+    string goTo;
     List<string> searchWords = new List<string>();
     [SerializeField] TMP_InputField searchField;
+    [SerializeField] Image HM10StatusSetter;
     bool firstClick = true;
+    GameObject holder;
     private void Awake()
     {
-        searchWords.Add("Paramètre");
+        holder = GameObject.FindGameObjectWithTag("MultiScriptHolder");
+        GameObject.FindGameObjectWithTag("MultiScriptHolder").GetComponent<HM10Connect>().HM10_Status = HM10StatusSetter;
+        if (PlayerPrefs.GetInt("Connected") == 1) GameObject.FindGameObjectWithTag("MultiScriptHolder").GetComponent<HM10Connect>().HM10_Status.color = Color.green;
+        else GameObject.FindGameObjectWithTag("MultiScriptHolder").GetComponent<HM10Connect>().HM10_Status.color = Color.yellow;
+        if (PlayerPrefs.GetInt("Connected") == 0 && !GameObject.FindGameObjectWithTag("MultiScriptHolder").GetComponent<HM10Connect>().Initialized) GameObject.FindGameObjectWithTag("MultiScriptHolder").GetComponent<HM10Connect>().Initialize();
+
+        searchWords.Add("Paramètres");
         searchWords.Add("Détection d'obstacles");
+        searchWords.Add("Obstacles");
         searchWords.Add("Détection sonore");
+        searchWords.Add("Sonore");
         searchWords.Add("GPS");
         searchWords.Add("Vibrations obstacles");
         searchWords.Add("Vibrations sonores");
@@ -35,25 +46,52 @@ public class MainButtonScript : MonoBehaviour
     {
         if (firstClick)
         {
+            int k = -1;
             goTo = string.Empty;
             for (int j = 0; j < 20; j++)
                 foreach (string g in searchWords)
                 {
+                    k = j;
                     if (g.Length > j)
                         if (searchField.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Substring(0, searchField.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Length - 1).Equals(g.Substring(0, g.Length - j), System.StringComparison.CurrentCultureIgnoreCase))
                         {
                             goTo = g;
-                            break;
+                            goto MotTrouve;
                         }
                 }
-            if (!string.IsNullOrEmpty(goTo))
+            MotTrouve:
+            if (k != 0)
             {
-                searchField.text = goTo;
-                firstClick = false;
+                if (!string.IsNullOrEmpty(goTo))
+                {
+                    searchField.text = goTo;
+                    firstClick = false;
+                }
+                else
+                {
+                    searchField.text = "";
+                }
             }
             else
             {
-                searchField.text = "";
+                gameObject.GetComponent<UltimateRedirector>().Redirector(goTo switch
+                {
+                    "Paramètre" => 17,
+                    "Détection d'obstacles" => 3,
+                    "Obstacles" => 3,
+                    "Détection sonore" => 7,
+                    "Sonore" => 7,
+                    "GPS" => 11,
+                    "Vibrations obstacles" => 5,
+                    "Vibrations sonores" => 9,
+                    "Vibrations GPS" => 14,
+                    "Police" => 19,
+                    "Thème" => 18,
+                    "Batterie" => 15,
+                    "Pas" => 16,
+                    "Débug" => 20,
+                    _ => 1
+                });
             }
         }
         else
@@ -62,7 +100,9 @@ public class MainButtonScript : MonoBehaviour
             {
                 "Paramètre" => 17,
                 "Détection d'obstacles" => 3,
+                "Obstacles" => 3,
                 "Détection sonore" => 7,
+                "Sonore" => 7,
                 "GPS" => 11,
                 "Vibrations obstacles" => 5,
                 "Vibrations sonores" => 9,
@@ -77,25 +117,11 @@ public class MainButtonScript : MonoBehaviour
         }
     }
 
-    void SendByte(byte value)
-    {
-        _hm10 = PlayerPrefs.GetString("_hm10", "");
-        ServiceUUID = PlayerPrefs.GetString("ServiceUUID", "");
-        Characteristic = PlayerPrefs.GetString("Characteristic", "");
-        byte[] data = new byte[] { value };
-		// notice that the 6th parameter is false. this is because the HM10 doesn't support withResponse writing to its characteristic.
-		// some devices do support this setting and it is prefered when they do so that you can know for sure the data was received by 
-		// the device
-		BluetoothLEHardwareInterface.WriteCharacteristic(_hm10, ServiceUUID, Characteristic, data, data.Length, false, (characteristicUUID) => {
-
-			BluetoothLEHardwareInterface.Log("Write Succeeded");
-		});
-	}
 
 	public void Vibrate()
     {
-        SendByte(2);
-        SendByte(0);
+        holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(2);
+        holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
     }
 
 	public void QuitApp()

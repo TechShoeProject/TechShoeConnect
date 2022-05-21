@@ -9,11 +9,16 @@ public class ChargingScreen : MonoBehaviour
 {
     [SerializeField] Slider charging;
     [SerializeField] TextMeshProUGUI text;
+    GameObject multiScriptHolder;
     void Start()
     {
         PlayerPrefs.SetInt("Connected", 0);
         PlayerPrefs.SetInt("Dangerosite", 0);
+        PlayerPrefs.SetInt("Son", 0);
         PlayerPrefs.SetInt("Distance", 0);
+        PlayerPrefs.SetInt("BatterieStatus", -1);
+        PlayerPrefs.SetInt("ChaussageStatus", -1);
+        PlayerPrefs.SetInt("PasStatus", -1);
         PlayerPrefs.SetInt("Variation", 0);
         PlayerPrefs.SetInt("LastData4", -1);
         PlayerPrefs.SetInt("LastData3", -1);
@@ -38,6 +43,17 @@ public class ChargingScreen : MonoBehaviour
         PlayerPrefs.SetString("NextAdressesNames3", string.Empty);
         PlayerPrefs.SetString("NextAdressesNames4", string.Empty);
         PlayerPrefs.SetString("NextAdressesNames5", string.Empty);
+
+        PlayerPrefs.SetInt("LastData4", -1);
+        PlayerPrefs.SetInt("LastData3", -1);
+        PlayerPrefs.SetInt("LastData2", -1);
+        PlayerPrefs.SetInt("LastData1", -1);
+
+        PlayerPrefs.SetInt("BatterieInfos", 0);
+        PlayerPrefs.SetInt("PasInfos", 0);
+        PlayerPrefs.SetInt("ConnectionInfos", 0);
+        PlayerPrefs.SetInt("ChaussageInfos", 0);
+
         if (PlayerPrefs.GetInt("Theme", -50) == -50) PlayerPrefs.SetInt("Theme", 1);
         if (PlayerPrefs.GetInt("Police", -50) == -50) PlayerPrefs.SetInt("Police", 0);
 
@@ -154,6 +170,13 @@ public class ChargingScreen : MonoBehaviour
         PlayerPrefs.SetFloat("Theme4Button_r", 0.1f);
         PlayerPrefs.SetFloat("Theme4Button_g", 0.1f);
         PlayerPrefs.SetFloat("Theme4Button_b", 0.1f);
+        multiScriptHolder = new GameObject();
+        multiScriptHolder.name = "MultiScriptHolder";
+        multiScriptHolder.AddComponent<BluetoothReaderScript>();
+        multiScriptHolder.AddComponent<BluetoothWriterScript>();
+        multiScriptHolder.AddComponent<HM10Connect>();
+        multiScriptHolder.tag = "MultiScriptHolder";
+        DontDestroyOnLoad(multiScriptHolder);
         StartCoroutine(LoadScene());
     }
 
