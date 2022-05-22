@@ -174,6 +174,7 @@ public class ChargingScreen : MonoBehaviour
         multiScriptHolder.name = "MultiScriptHolder";
         multiScriptHolder.AddComponent<BluetoothReaderScript>();
         multiScriptHolder.AddComponent<BluetoothWriterScript>();
+        multiScriptHolder.AddComponent<SwipeDetector>();
         multiScriptHolder.AddComponent<HM10Connect>();
         multiScriptHolder.tag = "MultiScriptHolder";
         DontDestroyOnLoad(multiScriptHolder);
@@ -182,7 +183,7 @@ public class ChargingScreen : MonoBehaviour
 
     IEnumerator LoadScene()
     {
-        AsyncOperation loadScene = SceneManager.LoadSceneAsync(1);
+        AsyncOperation loadScene = SceneManager.LoadSceneAsync(PlayerPrefs.GetInt("Aveugle", -1) == -1 ? 21 : (PlayerPrefs.GetInt("Aveugle") == 0 ? 1 : 2));
         while (!loadScene.isDone)
         {
             yield return null;

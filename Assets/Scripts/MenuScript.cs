@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class MenuScript : MonoBehaviour
 {
     [SerializeField] MenusScriptableObject[] menus;
-    GameObject[] menusGO;
+    public GameObject[] menusGO;
     [SerializeField] GameObject menuPrefab;
     GameObject temp;
     [SerializeField] List<TMP_FontAsset> fontList;
@@ -37,10 +37,24 @@ public class MenuScript : MonoBehaviour
             if (!menus[i].activation)
             {
                 menusGO[i].transform.Find("Activate").gameObject.SetActive(false);
+                if (PlayerPrefs.GetInt("Aveugle") == 1)
+                {
+                    menusGO[i].GetComponent<Button>().interactable = false;
+                    menusGO[i].GetComponent<Button>().transition = Selectable.Transition.None;
+                    menusGO[i].GetComponent<Button>().targetGraphic = null;
+                    GameObject.Find("Canvas").GetComponent<AccessibilityScript>().boutons.Add(menusGO[i].GetComponent<Button>());
+                }
             }
             else
             {
                 gameObject.GetComponent<ActivateAndDeactivateScript>().DetecToggle = menusGO[i].transform.Find("Activate").GetComponent<Toggle>();
+                if (PlayerPrefs.GetInt("Aveugle") == 1)
+                {
+                    menusGO[i].GetComponent<Button>().interactable = false;
+                    menusGO[i].GetComponent<Button>().transition = Selectable.Transition.None;
+                    menusGO[i].GetComponent<Button>().targetGraphic = null;
+                    GameObject.Find("Canvas").GetComponent<AccessibilityScript>().boutons.Add(menusGO[i].transform.Find("Activate").GetComponent<Toggle>());
+                }
             }
             int i2 = i;
             menusGO[i2].GetComponent<Button>().onClick.AddListener(delegate { MenuButtonClicked(i2); });
@@ -100,6 +114,10 @@ public class MenuScript : MonoBehaviour
                 break;
             case "Options de débug":
                 SceneManager.LoadScene(20);
+                break;
+            case "Accessibilité":
+                PlayerPrefs.SetInt("Aveugle", -1);
+                SceneManager.LoadScene(21);
                 break;
         }
     }

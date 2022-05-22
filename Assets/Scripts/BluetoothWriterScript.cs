@@ -23,7 +23,6 @@ public class BluetoothWriterScript : MonoBehaviour
             byte[] data = new byte[] { DataToSend[0] };
             BluetoothLEHardwareInterface.WriteCharacteristic(_hm10, ServiceUUID, Characteristic, data, data.Length, false, (characteristicUUID) =>
             {
-
                 BluetoothLEHardwareInterface.Log("Write Succeeded");
                 DataToSend.Remove(DataToSend[0]);
             });

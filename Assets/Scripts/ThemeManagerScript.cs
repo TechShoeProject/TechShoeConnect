@@ -24,19 +24,41 @@ public class ThemeManagerScript : MonoBehaviour
         
         Camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
         Camera.backgroundColor = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Background_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Background_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Background_b"));
-        foreach(TextMeshProUGUI x in basicText)
+        foreach(TextMeshProUGUI m in basicText)
         {
-            x.color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_b"));
+            m.color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Text_b"));
         }
 
-        foreach(Image x in buttons)
+        foreach(Image j in buttons)
         {
-            x.color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_b"));
+            j.color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "Button_b"));
         }
 
-        foreach (Image x in redButttons)
+        if (PlayerPrefs.GetInt("Aveugle") == 1) {
+            for (int g = 0; g < buttons.Count; g++)
+            {
+                if (buttons[g].gameObject.TryGetComponent<Button>(out Button j))
+                {
+                    j.interactable = false;
+                    j.transition = Selectable.Transition.None;
+                    j.targetGraphic = null;
+                }
+            }
+            for (int g = 0; g < logos.Count; g++)
+            {
+                if (logos[g].gameObject.TryGetComponent<Button>(out Button j))
+                {
+                    j.interactable = false;
+                    j.transition = Selectable.Transition.None;
+                    j.targetGraphic = null;
+                }
+            }
+        }
+        
+
+        foreach (Image s in redButttons)
         {
-            x.color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "RedButton_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "RedButton_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "RedButton_b"));
+            s.color = new Color(PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "RedButton_r"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "RedButton_g"), PlayerPrefs.GetFloat("Theme" + PlayerPrefs.GetInt("Theme") + "RedButton_b"));
         }
 
         foreach (Image x in logos)

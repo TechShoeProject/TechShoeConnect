@@ -40,7 +40,6 @@ public class SyncDanger : MonoBehaviour
 
     public void SendDataVibationsDanger(int vibType)
     {
-		Debug.Log("Vibration");
         float value;
         switch (vibType)
         {
@@ -57,7 +56,7 @@ public class SyncDanger : MonoBehaviour
                 value = pop.value;
                 break;
         }
-        byte toSend = (byte)(int)(value * 255);
+        byte toSend = (byte)(value * 255);
         holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
         holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
         holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)vibType);
