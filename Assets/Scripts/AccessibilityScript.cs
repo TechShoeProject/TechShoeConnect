@@ -24,9 +24,9 @@ public class AccessibilityScript : MonoBehaviour
                     x.gameObject.GetComponent<Slider>().interactable = false;
                 }
             }
+            gameObject.AddComponent<AudioSource>();
+            gameObject.GetComponent<AudioSource>().PlayOneShot(audioC[0]);
         }
-        gameObject.AddComponent<AudioSource>();
-        gameObject.GetComponent<AudioSource>().PlayOneShot(audioC[0]);
     }
 
     private void Update()
