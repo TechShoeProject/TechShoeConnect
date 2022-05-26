@@ -87,6 +87,7 @@ public class MainButtonScript : MonoBehaviour
                     "Vibrations GPS" => 14,
                     "Police" => 19,
                     "Thème" => 18,
+                    "Accessibilité" => 21,
                     "Batterie" => 15,
                     "Pas" => 16,
                     "Débug" => 20,
@@ -109,6 +110,7 @@ public class MainButtonScript : MonoBehaviour
                 "Vibrations GPS" => 14,
                 "Police" => 19,
                 "Thème" => 18,
+                "Accessibilité" => 21,
                 "Batterie" => 15,
                 "Pas" => 16,
                 "Débug" => 20,
@@ -121,6 +123,8 @@ public class MainButtonScript : MonoBehaviour
 	public void Vibrate()
     {
         holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(2);
+        holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+        holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
         holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
     }
 

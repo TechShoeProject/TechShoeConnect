@@ -11,6 +11,8 @@ public class HM10Connect : MonoBehaviour
 
 	public Image HM10_Status;
 
+	GameObject holder;
+
 	enum States
 	{
 		None,
@@ -33,8 +35,12 @@ public class HM10Connect : MonoBehaviour
 	// this is our hm10 device
 	private string _hm10;
 
+    private void Awake()
+    {
+		holder = gameObject;
+	}
 
-	void Reset()
+    void Reset()
 	{
 		_workingFoundDevice = false;    // used to guard against trying to connect to a second device while still connecting to the first
 		_connected = false;
@@ -177,11 +183,64 @@ public class HM10Connect : MonoBehaviour
 						// set to the none state and the user can start sending and receiving data
 						_state = States.None;
 						HM10_Status.color = Color.green;
-						PlayerPrefs.SetString("BTStatus", "<color=green><b>Connecté</color>");
+						PlayerPrefs.SetString("BTStatus", "<color=yellow><b>Initialisation des appareils</color>");
 						PlayerPrefs.SetString("_hm10", _hm10);
 						PlayerPrefs.SetString("ServiceUUID", ServiceUUID);
 						PlayerPrefs.SetString("Characteristic", Characteristic);
 						PlayerPrefs.SetInt("Connected", 1);
+						//Activation détection d'obstacles
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(4);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)PlayerPrefs.GetInt("ObstacleActive", 1));
+						//Activation détection sonore
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(4);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(1);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)PlayerPrefs.GetInt("SonoreActive", 1));
+						//Vibrations faibles obstacles
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(1);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)(PlayerPrefs.GetFloat("VibrationOFaible", 0.3f) * 255));
+						//Vibrations moyennes obstacles
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(1);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)(PlayerPrefs.GetFloat("VibrationOMoyen", 0.6f) * 255));
+						//Vibrations fortes obstacles
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(1);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)(PlayerPrefs.GetFloat("VibrationOHaut", 1f) * 255));
+						//Vibrations pop obstacles
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(1);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)(PlayerPrefs.GetFloat("VibrationOPop", 0.8f) * 255));
+						//Vibrations son
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(1);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)(PlayerPrefs.GetFloat("VibrationS", 0.3f) * 255));
+						//Vibrations son type
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(1);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)PlayerPrefs.GetInt("VibrationST", 0));
+						//Vibrations GPS
+						for (int x = 0; x < 12; x++)
+						{
+							holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
+							holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(2);
+							holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)x);
+							holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)PlayerPrefs.GetInt("VibrationGPS" + x.ToString(), 0));
+						}
+						//Connection établie
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(2);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(3);
+						holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
 						Initialized = false;
 						break;
 

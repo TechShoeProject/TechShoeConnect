@@ -18,6 +18,7 @@ public class GPSScript : MonoBehaviour
     public float Latitude = 48.780931f, Longitude = 2.260204f;
     public string Adresse;
     string bingMapsKey = "Al21Qu3r-IGPQvohMdo6S9Tjs6lDGTZSiblAAJbXkXNmcZPYlkNJx5E5JW8xEODA";
+    GameObject holder;
 
     public void StartGeolocate()
     {
@@ -31,6 +32,11 @@ public class GPSScript : MonoBehaviour
         StartCoroutine(Locate(true));
     }
 
+    private void Awake()
+    {
+        holder = GameObject.FindGameObjectWithTag("MultiScriptHolder");
+    }
+
     private void Update()
     {
         if(PlayerPrefs.GetInt("LaunchGPS") == 1)
@@ -40,7 +46,31 @@ public class GPSScript : MonoBehaviour
         }
         if (PlayerPrefs.GetInt("GPSRequestTime") != 0 && timeInDay - PlayerPrefs.GetInt("GPSRequestTime") < 1)
         {
-            //Demande de vibration
+            int maneuverData = PlayerPrefs.GetString("Maneuver1") switch
+            {
+                "KeepStraight" => 0,
+                "TurnRight" => 1,
+                "TurnLeft" => 2,
+                "KeepRight" => 3,
+                "KeepLeft" => 4,
+                "KeepToStayRight" => 5,
+                "KeepToStayLeft" => 6,
+                "BearRight" => 7,
+                "BearLeft" => 8,
+                "TurnRightThenTurnLeft" => 9,
+                "TurnLeftThenTurnRight" => 10,
+                "TurnRightThenTurnRight" => 1,
+                "TurnLeftThenTurnLeft" => 2,
+                "EnterThenExitRoundabout" => 11,
+                _ => -1,
+            };
+            if (maneuverData != -1)
+            {
+                holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+                holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+                holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
+                holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)maneuverData);
+            }
         }
         timeInDay = System.DateTime.Now.Hour * 3600 + System.DateTime.Now.Minute * 60 + System.DateTime.Now.Second;
         if (PlayerPrefs.GetInt("GPSRequestTime") != 0 && (timeInDay - PlayerPrefs.GetInt("GPSRequestTime")  > 10 || timeInDay - PlayerPrefs.GetInt("GPSRequestTime")  > PlayerPrefs.GetInt("Duration1") / 2))

@@ -36,6 +36,7 @@ public class AccessibilityScript : MonoBehaviour
             if (holder.GetComponent<SwipeDetector>().SwipeDown)
             {
                 selected = selected + 1 < boutons.Count ? selected + 1 : 0;
+                gameObject.GetComponent<AudioSource>().Stop();
                 gameObject.GetComponent<AudioSource>().PlayOneShot(audioC[selected]);
             }
             if (holder.GetComponent<SwipeDetector>().SwipeUp)

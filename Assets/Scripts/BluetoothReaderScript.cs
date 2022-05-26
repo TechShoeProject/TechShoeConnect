@@ -94,11 +94,15 @@ public class BluetoothReaderScript : MonoBehaviour
 							PlayerPrefs.SetInt("PasLastActual", System.DateTime.Now.Day);
 						}
 					}
-					break;
-				case 2:
-					if (PlayerPrefs.GetInt("LastData3") == 0 && PlayerPrefs.GetInt("LastData2") == 1)
+					else if (PlayerPrefs.GetInt("LastData3") == 0 && PlayerPrefs.GetInt("LastData2") == 6)
 					{
 						PlayerPrefs.SetInt("Son", PlayerPrefs.GetInt("LastData1"));
+					}
+					break;
+				case 2:
+					if(PlayerPrefs.GetInt("LastData3") == 0 && PlayerPrefs.GetInt("LastData2") == 3 && PlayerPrefs.GetInt("LastData1") == 0)
+                    {
+						PlayerPrefs.SetString("BTStatus", "<color=green><b>Connecté</color>");
 					}
 					break;
 			}

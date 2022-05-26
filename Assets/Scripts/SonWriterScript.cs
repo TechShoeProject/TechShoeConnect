@@ -13,7 +13,9 @@ public class SonWriterScript : MonoBehaviour
 	{
 		holder = GameObject.FindGameObjectWithTag("MultiScriptHolder");
 		holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(2);
+		holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
 		holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(1);
+		holder.GetComponent<BluetoothWriterScript>().DataToSend.Add(0);
 		value.maxValue = 255;
     }
     private void Update()

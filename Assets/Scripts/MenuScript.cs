@@ -47,6 +47,7 @@ public class MenuScript : MonoBehaviour
             }
             else
             {
+                menusGO[i].transform.Find("Activate").GetComponent<Toggle>().isOn = SceneManager.GetActiveScene().buildIndex == 3 ? PlayerPrefs.GetInt("ObstacleActive", 1) == 1 : PlayerPrefs.GetInt("SonoreActive", 1) == 1;
                 gameObject.GetComponent<ActivateAndDeactivateScript>().DetecToggle = menusGO[i].transform.Find("Activate").GetComponent<Toggle>();
                 if (PlayerPrefs.GetInt("Aveugle") == 1)
                 {

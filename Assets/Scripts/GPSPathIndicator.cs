@@ -82,8 +82,8 @@ public class GPSPathIndicator : MonoBehaviour
         nextManeuver.sprite = nextManeuverSprite;
         secondManeuver.sprite = secondManeuverSprite;
         thirdManeuver.sprite = thirdManeuverSprite;
-        nextManeuverDistance.text = PlayerPrefs.GetFloat("Distance1") > 1 ? PlayerPrefs.GetFloat("Distance1") + "km" : PlayerPrefs.GetFloat("Distance1") * 1000 + "m";
-        secondManeuverDistance.text = PlayerPrefs.GetFloat("Distance2") > 1 ? PlayerPrefs.GetFloat("Distance2") + "km" : PlayerPrefs.GetFloat("Distance2") * 1000 + "m";
-        thirdManeuverDistance.text = PlayerPrefs.GetFloat("Distance3") > 1 ? PlayerPrefs.GetFloat("Distance3") + "km" : PlayerPrefs.GetFloat("Distance3") * 1000 + "m";
+        nextManeuverDistance.text = PlayerPrefs.GetFloat("Distance1") > 1 ? Mathf.RoundToInt(PlayerPrefs.GetFloat("Distance1")) + "km" : PlayerPrefs.GetFloat("Distance1") * 1000 + "m";
+        secondManeuverDistance.text = PlayerPrefs.GetFloat("Distance2") > 1 ? Mathf.RoundToInt(PlayerPrefs.GetFloat("Distance2")) + "km" : PlayerPrefs.GetFloat("Distance2") * 1000 + "m";
+        thirdManeuverDistance.text = PlayerPrefs.GetFloat("Distance3") > 1 ? Mathf.RoundToInt(PlayerPrefs.GetFloat("Distance3")) + "km" : PlayerPrefs.GetFloat("Distance3") * 1000 + "m";
     }
 }

@@ -15,7 +15,7 @@ public class DebugScript : MonoBehaviour
     }
     public void SendData()
     {
-        holder.GetComponent<BluetoothWriterScript>().DataToSend.Add((byte)Mathf.Clamp(int.Parse(toSend.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Substring(0, toSend.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Length - 1)), 0, 255));
+        holder.GetComponent<BluetoothWriterScript>().OnlyOneData.Add((byte)Mathf.Clamp(int.Parse(toSend.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Substring(0, toSend.transform.Find("Text Area").transform.Find("Text").GetComponent<TextMeshProUGUI>().text.Length - 1)), 0, 255));
     }
 
     private void Update()
